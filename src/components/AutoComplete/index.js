@@ -1,6 +1,7 @@
 import Input from "../Input";
 import classnames from "classnames";
 import React from "react";
+import { debounce } from "../../lib/debounce";
 
 const AutoComplete = ({
   className,
@@ -8,8 +9,6 @@ const AutoComplete = ({
   children,
   ...rest
 }) => {
-  const [value, setValue] = React.useState("");
-
   return (
     <div className={classnames("w-full", className)}>
       <div className="w-full">
@@ -17,7 +16,7 @@ const AutoComplete = ({
           className="h-8 p-1 bg-gray-200 text-gray-900 rounded-sm"
           placeholder="Search"
           type="search"
-          onChange={(e) => onChange(e.target.value)}
+          onChange={debounce((e) => onChange(e.target.value), 300)}
         />
       </div>
       <div className="relative">
